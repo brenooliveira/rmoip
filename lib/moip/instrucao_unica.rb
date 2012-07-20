@@ -6,7 +6,7 @@ module Moip
     self.make_xml(parameters)
       builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {
-            xml.InstrucaoUnica {
+            xml.InstrucaoUnica(:TipoValidacao => "Transparente") {
                xml.Razao {
                 xml.text parameters[:razao]
               }
