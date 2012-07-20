@@ -3,7 +3,7 @@
 #require "spec_helper"
 require "rmoip"
 
-describe "Rmoip" do
+describe Rmoip do
   it "devo gerar uma requisao valida" do
     true
   end
