@@ -4,7 +4,9 @@
 require "rmoip"
 
 describe Rmoip do
-  it "devo gerar uma requisao valida" do
-    true
+  describe "InstrucaoUnica" do
+    context "quando validamos a instrucao" do
+      it ("deve ter um id_propio informado")
+    end
   end
 end
