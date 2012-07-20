@@ -3,9 +3,8 @@ require 'moip/request'
 
 class Rmoip
 
-	def self.rmoip
-	  Moip::Request.opa
-		puts "hello gem"
+	def self.setup
+	  yield self
 	end
 
 end
