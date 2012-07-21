@@ -1,0 +1,10 @@
+## PROJECT::GENERAL
+coverage
+doc
+pkg
+.rvmrc
+.bundle
+.yardoc/*
+dist
+exec
+.bundle
