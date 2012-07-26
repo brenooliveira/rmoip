@@ -1,9 +1,9 @@
 require 'nokogiri'
 
-module Moip
+module Rmoip
   class InstrucaoUnica
 
-    self.make_xml(parameters)
+    def self.make_xml(parameters)
       builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {
             xml.InstrucaoUnica(:TipoValidacao => "Transparente") {

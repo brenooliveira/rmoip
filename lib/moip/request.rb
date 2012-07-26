@@ -1,19 +1,25 @@
-# encoding: utf-8
-require 'httparty'
-
-module Moip
+module Rmoip
 
   class Request
     include HTTParty
-    
-    #base_uri "#{MoIP.uri}/ws/alpha"
-    #basic_auth MoIP.token, MoIP.key
 
-    def self.intrucao_unica(parameters = {})
-      xml = Moip::InstrucaoUnica.toXml params
-      puts "XML Instrucao Unica: #{xml}"
+    attr_accessor :token, :key, :env
+
+    def initialize(token, key, env)
+      @token = token
+      @key = key
+      @env = env    
     end
     
+    base_uri "https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica"
+    basic_auth @token, @key
+
+    def self.enviar_cobranca_unica(parameters = {})
+      raise "Informe um token" unless token
+      #xml = Moip::InstrucaoUnica.make_xml params
+      puts "XML Instrucao Unica: "
+    end
+
   end
 
 end

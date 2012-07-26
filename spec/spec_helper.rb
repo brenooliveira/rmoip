@@ -1,3 +1,9 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require "rmoip"
+require 'fakeweb'
+require "rspec"
+=begin
 RSpec.configure do |config|
   config.color_enabled = true
   config.mock_framework = :rspec
@@ -11,7 +17,7 @@ RSpec.configure do |config|
   #config.libs << "vendor/mylib-1.0.0"
   
   # Carrega automaticamente os caminhos especificados.
-  config.requires << "rspec"
+  #config.requires << "rspec"
   
   # Inclui um módulo. Os métodos desse módulo estarão disponíveis no
   # contexto dos métodos `it`, `specify`, `before`, `after` e `around`.
@@ -42,3 +48,4 @@ RSpec.configure do |config|
   # avaliado como `true`.
   config.exclusion_filter = {:ruby => lambda {|version| RUBY_VERSION.to_s !~ /^#{version.to_s}/ }}
 end
+=end

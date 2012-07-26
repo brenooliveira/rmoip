@@ -1,23 +1,20 @@
 # encoding: utf-8
 #require "rubygems"
-#require "spec_helper"
-require "rmoip"
+require "spec_helper"
 
 describe Rmoip do
   
-  #before :all do
-  #  Rmoip.config do |config|
-  #    config.env = :SANDBOX
-  #    config.token = ""
-  #    config.key = ""
-  #  end
-  #end
-
   describe "ao enviar pagamentos para o moip atraves da api" do
     describe "ao tentar enviar a intrucao" do
       describe "ao tentar me autenticando com o moip" do
-        it ("deve ter um token")
-        it ("deve ter uma key")
+     
+        it ("deve ter um token") do
+          
+        end
+        it ("deve ter uma key") do
+
+        end
+        
       end
     
       context "quando validamos a instrucao" do
