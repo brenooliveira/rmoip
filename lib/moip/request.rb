@@ -14,7 +14,7 @@ module Rmoip
     base_uri "https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica"
     basic_auth @token, @key
 
-    def self.enviar_cobranca_unica(parameters = {})
+    def self.enviar_cobranca_unica(id_cobranca, &block)
       raise "Informe um token" unless token
       #xml = Moip::InstrucaoUnica.make_xml params
       puts "XML Instrucao Unica: "

@@ -5,9 +5,9 @@ require "moip/instrucao_unica"
 
 module Rmoip
 
-	def self.autenticacao(token, key, env)
+	def self.da_loja(token, key, env)
 	  env = :SANDBOX if env.nil? || env != :PRODUCAO
-	  Request.new :token => token, :key => key, :env => env
+	  Request.new(token, key, env)
 	end
 	
 end

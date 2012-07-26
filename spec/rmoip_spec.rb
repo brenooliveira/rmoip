@@ -9,7 +9,7 @@ describe Rmoip do
       describe "ao tentar me autenticando com o moip" do
      
         it ("deve ter um token") do
-          
+          Rmoip.da_loja("wertyuio","werwstfsdfg", ":SANDBOX")
         end
         it ("deve ter uma key") do
 
