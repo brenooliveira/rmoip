@@ -9,7 +9,7 @@ describe Rmoip do
       describe "ao tentar me autenticando com o moip" do
      
         it ("deve ter um token") do
-          Rmoip.da_loja("wertyuio","werwstfsdfg", ":SANDBOX")
+          Rmoip.login("wertyuio","werwstfsdfg", :SANDBOX)
         end
         it ("deve ter uma key") do
 
@@ -18,7 +18,32 @@ describe Rmoip do
       end
     
       context "quando validamos a instrucao" do
-        it ("deve ter um id_propio informado")
+        it ("deve ter um id_propio informado") do
+          @cobranca_boleto = {
+                        :valor => "8.90", 
+                        :id_proprio => "qualquer_um",
+                        :razao => "Um motivo qualquer",
+                        :pagador => {
+                          :nome => "Luiz Inácio Lula da Silva",
+                          :email => "presidente@planalto.gov.br",
+                          :tel_cel => "(61)9999-9999",
+                          :apelido => "Lula",
+                          :identidade => "111.111.111-11",
+                          :logradouro => "Praça dos Três Poderes",
+                          :numero => "0",
+                          :complemento => "Palácio do Planalto",
+                          :bairro => "Zona Cívico-Administrativa",
+                          :cidade => "Brasília",
+                          :estado => "DF",
+                          :pais => "BRA",
+                          :cep => "70100-000",
+                          :tel_fixo => "(61)3211-1221"
+                        }
+                      }
+            moip = Rmoip.login("SEU_TOKEN","SUA_KEY", :SANDBOX)
+            moip.cobrar_com_boleto(@cobranca_boleto)
+            moip.enviar_cobranca
+        end
         it ("deve ter uma razao do pagamento")
         it ("deve ter um valor maior que 0")
         context "quando tem comissionado" do

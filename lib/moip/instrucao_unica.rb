@@ -74,6 +74,7 @@ module Rmoip
             } #xml.InstrucaoUnica
         } #xml.EnviarInstrucao
       end
+      builder.to_xml
     end
 
   end
