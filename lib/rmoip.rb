@@ -10,5 +10,5 @@ module Rmoip
 	  env = :SANDBOX if env.nil? || env != :PRODUCAO
 	  Request.new(token, key, env)
 	end
-	
+
 end

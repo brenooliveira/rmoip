@@ -3,24 +3,24 @@
 require "spec_helper"
 
 describe Rmoip do
-  
+
   describe "ao enviar pagamentos para o moip atraves da api" do
     describe "ao tentar enviar a intrucao" do
       describe "ao tentar me autenticando com o moip" do
-     
+
         it ("deve ter um token") do
           Rmoip.login("wertyuio","werwstfsdfg", :SANDBOX)
         end
         it ("deve ter uma key") do
 
         end
-        
+
       end
-    
+
       context "quando validamos a instrucao" do
         it ("deve ter um id_propio informado") do
           @cobranca_boleto = {
-                        :valor => "8.90", 
+                        :valor => "8.90",
                         :id_proprio => "qualquer_um",
                         :razao => "Um motivo qualquer",
                         :pagador => {
@@ -40,9 +40,22 @@ describe Rmoip do
                           :tel_fixo => "(61)3211-1221"
                         }
                       }
+            @parcel1 = {
+                    :min => 1,
+                    :max => 5,
+                    :juros => 2.99
+                 }
+            @parcel2 = {
+                    :min => 6,
+                    :max => 7,
+                    :juros => 3.99
+                 }
             moip = Rmoip.login("SEU_TOKEN","SUA_KEY", :SANDBOX)
             moip.cobrar_com_boleto(@cobranca_boleto)
-            moip.enviar_cobranca
+                    .add_parcel(@parcel1)
+                    .add_parcel(@parcel2)
+                    .enviar_cobranca
+            #moip.enviar_cobranca
         end
         it ("deve ter uma razao do pagamento")
         it ("deve ter um valor maior que 0")
