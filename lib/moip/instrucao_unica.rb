@@ -16,7 +16,7 @@ module Rmoip
               xml.IdProprio {
                 xml.text parameters[:id_proprio]
               }
-              
+
               xml.Pagador {
                 xml.Nome { xml.text parameters[:pagador][:nome] }
                 xml.LoginMoIP { xml.text parameters[:pagador][:login_moip] }
@@ -36,14 +36,14 @@ module Rmoip
                   xml.TelefoneFixo { xml.text parameters[:pagador][:tel_fixo] }
                 }
               }
-              
+
               if parameters[:url_retorno]
                 # URL de retorno
                 xml.URLRetorno {
                   xml.text parameters[:url_retorno]
                 }
               end
-              
+
               if !parameters[:comissoes].nil?
                 xml.Comissoes {
                   xml.Comissionamento {
@@ -56,9 +56,9 @@ module Rmoip
                       xml.LoginMoIP { xml.text parameters[:comissoes][:login_moip] }
                     }
                   }
-                } 
+                }
               end
-              
+
               if !parameters[:parcelamentos].nil?
                 xml.Parcelamentos {
                   xml.Parcelamento {
@@ -66,11 +66,11 @@ module Rmoip
                     xml.MaximoParcelas { xml.text parameters[:parcelamento][:maximo_parcela] }
                     xml.Juros { xml.text parameters[:parcelamento][:juros] }
                     xml.Repassar { xml.text parameters[:parcelamento][:repassar] }
-                    
+
                   }
                 }
               end
-              
+
             } #xml.InstrucaoUnica
         } #xml.EnviarInstrucao
       end

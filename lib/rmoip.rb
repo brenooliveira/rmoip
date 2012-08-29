@@ -7,7 +7,7 @@ require "moip/instrucao_unica"
 module Rmoip
 
 	def self.login(token, key, env)
-	  env = :SANDBOX if env.nil? || env != :PRODUCAO
+	  env = :PRODUCAO if env.nil? || env != :SANDBOX
 	  Request.new(token, key, env)
 	end
 
