@@ -51,7 +51,7 @@ describe Rmoip do
                     :juros => 3.99
                  }
             moip = Rmoip.login("SEU_TOKEN","SUA_KEY", :SANDBOX)
-            moip.cobrar_com_boleto(@cobranca_boleto)
+            moip.cobrar(@cobranca_boleto)
                     .add_parcel(@parcel1)
                     .add_parcel(@parcel2)
                     .enviar_cobranca

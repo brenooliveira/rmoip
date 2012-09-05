@@ -15,14 +15,7 @@ module Rmoip
     base_uri "https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica"
     basic_auth @token, @key
 
-    def cobrar_com_boleto(parameters)
-      parameters[:forma] = "BoletoBancario"
-      @parameters = parameters
-      return self
-    end
-
-    def self.cobrar_com_cartao_de_credito(parameters)
-      parameters[:forma] = "CartaoCredito"
+    def cobrar(parameters)
       @parameters = parameters
       return self
     end
@@ -35,13 +28,12 @@ module Rmoip
     end
 
     def add_split
-        puts "add_split"
         return self
     end
 
     def add_parcel(parcel)
-        @parameters["parcelamento"] = parcel
-        return self
+      @parcelamentos.push parcel
+      return self
     end
 
     private
