@@ -19,7 +19,7 @@ describe Rmoip do
 
       context "quando validamos a instrucao" do
         it ("deve ter um id_propio informado") do
-          @cobranca_boleto = {
+          @cobranca = {
                         :valor => "8.90",
                         :id_proprio => "qualquer_um",
                         :razao => "Um motivo qualquer",
@@ -50,12 +50,9 @@ describe Rmoip do
                     :max => 7,
                     :juros => 3.99
                  }
-            moip = Rmoip.login("SEU_TOKEN","SUA_KEY", :SANDBOX)
-            moip.cobrar(@cobranca_boleto)
-                    .add_parcel(@parcel1)
-                    .add_parcel(@parcel2)
-                    .enviar_cobranca
-            #moip.enviar_cobranca
+            moip = Rmoip.login("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB", :SANDBOX)
+            moip.cobrar(@cobranca).enviar_cobranca 
+            
         end
         it ("deve ter uma razao do pagamento")
         it ("deve ter um valor maior que 0")

@@ -4,7 +4,7 @@ module Rmoip
     def self.make_xml(parameters)
       builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {
-            xml.InstrucaoUnica(:TipoValidacao => "Transparente") {
+            xml.InstrucaoUnica {
                xml.Razao {
                 xml.text parameters[:razao]
               }

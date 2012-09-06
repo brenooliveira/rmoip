@@ -12,9 +12,6 @@ module Rmoip
       @env = env
     end
 
-    base_uri "https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica"
-    basic_auth @token, @key
-
     def cobrar(parameters)
       @parameters = parameters
       return self
@@ -43,12 +40,27 @@ module Rmoip
     end
 
     def enviar(xml)
-      puts xml
+      options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
+      response = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
+      response['status'] == "Sucesso"
     end
 
+    def uri
+      case @env 
+      when :SANDBOX
+        "https://desenvolvedor.moip.com.br/sandbox"
+      when :PRODUCTION
+        "https://www.moip.com.br"
+      else
+        raise InvalidEnvironmentErro, "É obrigatório informar o ENV"
+      end
+    end
   end
 
   class MissingIdProprioError < Exception
+  end
+
+  class InvalidEnvironmentErro < Exception
   end
 
   class MissingRazaoError < Exception
