@@ -51,8 +51,9 @@ describe Rmoip do
                     :juros => 3.99
                  }
             moip = Rmoip.login("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB", :SANDBOX)
-            moip.cobrar(@cobranca).enviar_cobranca 
-            
+            moip.cobrar(@cobranca)
+            moip.enviar_cobranca 
+
         end
         it ("deve ter uma razao do pagamento")
         it ("deve ter um valor maior que 0")
