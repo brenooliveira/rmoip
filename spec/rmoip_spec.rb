@@ -9,7 +9,7 @@ describe Rmoip do
       describe "ao tentar me autenticando com o moip" do
 
         it ("deve ter um token") do
-          Rmoip.login("wertyuio","werwstfsdfg", :SANDBOX)
+          Rmoip.sandbox("wertyuio","werwstfsdfg")
         end
         it ("deve ter uma key") do
 
@@ -50,9 +50,9 @@ describe Rmoip do
                     :max => 7,
                     :juros => 3.99
                  }
-            moip = Rmoip.login("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB", :SANDBOX)
-            moip.cobrar(@cobranca)
-            moip.enviar_cobranca 
+
+            moip = Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+            moip.send(@cobranca)
 
         end
         it ("deve ter uma razao do pagamento")

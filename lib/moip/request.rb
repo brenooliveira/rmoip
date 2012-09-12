@@ -1,6 +1,5 @@
 # encoding: utf-8
 module Rmoip
-
   class Request
     include HTTParty
 
@@ -12,16 +11,11 @@ module Rmoip
       @env = env
     end
 
-    def cobrar(parameters)
-      @parameters = parameters
-      return self
-    end
-
-    def enviar_cobranca
+    def send(parameters)
       raise MissingIdProprioError, "É obrigatório informar um Id Proprio" if @parameters[:id_proprio].nil?
       raise MissingRazaoError, "É obrigatório informar uma Razao" if @parameters[:razao].nil?
 
-      preparar_cobranca @parameters
+      request_moip parameters
     end
 
     def add_split
@@ -38,16 +32,11 @@ module Rmoip
     end
 
     private
-    def preparar_cobranca(parameters)
+    def request_moip(xml)
       xml = Rmoip::InstrucaoUnica.make_xml parameters
-      enviar xml
-    end
-
-    def enviar(xml)
       options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
       request = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
       response = Rmoip::ResponseApi.build request['EnviarInstrucaoUnicaResponse']['Resposta']
-      response
     end
 
     def uri
