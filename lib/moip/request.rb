@@ -33,6 +33,10 @@ module Rmoip
       return self
     end
 
+    def get_url
+      return uri << "/Instrucao.do?token=" << @response.token
+    end
+
     private
     def preparar_cobranca(parameters)
       xml = Rmoip::InstrucaoUnica.make_xml parameters
@@ -41,8 +45,9 @@ module Rmoip
 
     def enviar(xml)
       options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
-      response = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
-      response['status'] == "Sucesso"
+      request = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
+      response = Rmoip::ResponseApi.build request['EnviarInstrucaoUnicaResponse']['Resposta']
+      response
     end
 
     def uri

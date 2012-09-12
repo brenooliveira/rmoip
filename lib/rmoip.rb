@@ -3,6 +3,7 @@ require "httparty"
 require "nokogiri"
 require "moip/request"
 require "moip/instrucao_unica"
+require "moip/response_api"
 
 module Rmoip
 
