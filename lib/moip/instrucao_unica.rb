@@ -46,29 +46,33 @@ module Rmoip
 
               if !parameters[:comissoes].nil?
                 xml.Comissoes {
-                  xml.Comissionamento {
-                    xml.Razao { xml.text parameters[:comissoes][:razao] }
-                    xml.ValorPercentual { xml.text parameters[:comissoes][:valor_percentual] }
-                    xml.ValorFixo { xml.text parameters[:comissoes][:valor_fixo] }
-                    xml.MostrarParaPagador { xml.text parameters[:comissoes][:mostrar_para_pagador] }
-                    xml.Parcelada { xml.text parameters[:comissoes][:parcelada] }
-                    xml.Comissionado {
-                      xml.LoginMoIP { xml.text parameters[:comissoes][:login_moip] }
+                  parameters[:comissoes].each do |split|
+                    xml.Comissionamento {
+                      xml.Razao { xml.text split[:razao] }
+                      xml.ValorPercentual { xml.text split[:valor_percentual] }
+                      xml.ValorFixo { xml.text split[:valor_fixo] }
+                      xml.MostrarParaPagador { xml.text split[:mostrar_para_pagador] }
+                      xml.Parcelada { xml.text split[:parcelada] }
+                      xml.Comissionado {
+                        xml.LoginMoIP { xml.text split[:login_moip] }
+                      }
                     }
-                  }
+                  end
                 }
               end
 
               if !parameters[:parcelamentos].nil?
-                xml.Parcelamentos {
-                  xml.Parcelamento {
-                    xml.MinimoParcelas { xml.text parameters[:parcelamento][:minimo_parcela] }
-                    xml.MaximoParcelas { xml.text parameters[:parcelamento][:maximo_parcela] }
-                    xml.Juros { xml.text parameters[:parcelamento][:juros] }
-                    xml.Repassar { xml.text parameters[:parcelamento][:repassar] }
+                  xml.Parcelamentos {
+                    parameters[:parcelamentos].each do |parcel|
+                      xml.Parcelamento {
+                        xml.MinimoParcelas { xml.text parcel[:min] }
+                        xml.MaximoParcelas { xml.text parcel[:max] }
+                        xml.Juros { xml.text parcel[:juros] }
+                        xml.Repassar { xml.text parcel[:repassar] }
 
+                      }
+                    end
                   }
-                }
               end
 
             } #xml.InstrucaoUnica

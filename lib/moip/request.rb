@@ -9,6 +9,8 @@ module Rmoip
       @token = token
       @key = key
       @env = env
+      @parcels = Array.new
+      @splits = Array.new
     end
 
     def send(parameters)
@@ -19,12 +21,13 @@ module Rmoip
       response
     end
 
-    def add_split
-        return self
+    def add_split(split)
+      @splits.push split
+      return self
     end
 
     def add_parcel(parcel)
-      @parcelamentos.push parcel
+      @parcels.push parcel
       return self
     end
 
@@ -34,12 +37,18 @@ module Rmoip
 
     private
     def request_moip(parameters)
-      xml = Rmoip::InstrucaoUnica.make_xml parameters
+      xml = prepare_hash(parameters)
       options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
       request = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
-      puts request
+      # puts request
       response = Rmoip::ResponseApi.build request['EnviarInstrucaoUnicaResponse']['Resposta']
       response
+    end
+
+    def prepare_hash(parameters)
+      parameters[:parcelamentos] = @parcels
+      parameters[:comissoes] = @splits
+      xml = Rmoip::InstrucaoUnica.make_xml parameters      
     end
 
     def uri

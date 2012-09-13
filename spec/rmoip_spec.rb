@@ -43,7 +43,8 @@ describe Rmoip do
             @parcel1 = {
                     :min => 1,
                     :max => 5,
-                    :juros => 2.99
+                    :juros => 2.99,
+                    :repassar => true
                  }
             @parcel2 = {
                     :min => 6,
@@ -52,9 +53,10 @@ describe Rmoip do
                  }
 
             moip = Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
-            response = moip.send(@cobranca)
+                          .add_parcel(@parcel1)
+                          .send(@cobranca)
 
-            puts "Response: #{response.to_s}"
+            puts "Response: #{moip.to_s}"
 
         end
         it ("deve ter uma razao do pagamento")
