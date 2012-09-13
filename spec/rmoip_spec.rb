@@ -22,7 +22,7 @@ describe Rmoip do
           @cobranca = {
                         :valor => "8.90",
                         :id_proprio => "qualquer_um",
-                        :razao => "Um motivo qualquer",
+                        :razao => Time.now.getutc, #"Um motivo qualquer",
                         :pagador => {
                           :nome => "Luiz Inácio Lula da Silva",
                           :email => "presidente@planalto.gov.br",
@@ -52,7 +52,9 @@ describe Rmoip do
                  }
 
             moip = Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
-            moip.send(@cobranca)
+            response = moip.send(@cobranca)
+
+            puts "Response: #{response.to_s}"
 
         end
         it ("deve ter uma razao do pagamento")

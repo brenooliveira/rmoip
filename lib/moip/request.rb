@@ -12,10 +12,11 @@ module Rmoip
     end
 
     def send(parameters)
-      raise MissingIdProprioError, "É obrigatório informar um Id Proprio" if @parameters[:id_proprio].nil?
-      raise MissingRazaoError, "É obrigatório informar uma Razao" if @parameters[:razao].nil?
+      raise MissingIdProprioError, "É obrigatório informar um Id Proprio" if parameters[:id_proprio].nil?
+      raise MissingRazaoError, "É obrigatório informar uma Razao" if parameters[:razao].nil?
 
-      request_moip parameters
+      response = request_moip parameters
+      response
     end
 
     def add_split
@@ -32,11 +33,13 @@ module Rmoip
     end
 
     private
-    def request_moip(xml)
+    def request_moip(parameters)
       xml = Rmoip::InstrucaoUnica.make_xml parameters
       options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
       request = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
+      puts request
       response = Rmoip::ResponseApi.build request['EnviarInstrucaoUnicaResponse']['Resposta']
+      response
     end
 
     def uri
