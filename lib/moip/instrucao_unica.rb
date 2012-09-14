@@ -77,6 +77,10 @@ module Rmoip
 
             } #xml.InstrucaoUnica
         } #xml.EnviarInstrucao
+
+        if (parameters[:validate])
+          xml.InstrucaoUnica(:TipoValidacao => "Transparente")
+        end
       end
       builder.to_xml
     end
