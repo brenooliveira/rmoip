@@ -7,12 +7,17 @@ describe Rmoip do
   describe "ao enviar pagamentos para o moip atraves da api" do
     describe "ao tentar enviar a intrucao" do
       describe "ao tentar me autenticando com o moip" do
-
+        before do
+          @request = Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+        end
+        it ("deve devolver uma  instancia para sandbox") do
+          @request.should_not be_nil
+        end
         it ("deve ter um token") do
-          Rmoip.sandbox("wertyuio","werwstfsdfg")
+          @request.token.should eq "01010101010101010101010101010101"
         end
         it ("deve ter uma key") do
-
+          @request.key.should eq "ABABABABABABABABABABABABABABABABABABABAB"
         end
 
       end
@@ -21,7 +26,7 @@ describe Rmoip do
         it ("deve ter um id_propio informado") do
           @cobranca = {
                         :valor => "8.90",
-                        :id_proprio => "qualquer_um",
+                        # :id_proprio => "qualquer_um",
                         :razao => Time.now.getutc, #"Um motivo qualquer",
                         :pagador => {
                           :nome => "Luiz Inácio Lula da Silva",
@@ -40,34 +45,58 @@ describe Rmoip do
                           :tel_fixo => "(61)3211-1221"
                         }
                       }
-            @parcel1 = {
-                    :min => 1,
+
+            expect { 
+                  Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+                          .send(@cobranca).validate()
+             }.to raise_error(Rmoip::MissingIdProprioError)
+        end
+        it ("deve ter uma razao do pagamento")
+        it ("deve ter um valor maior que 0")
+        
+        context "quando tem comissionado" do
+          it ("deve ter um Comissionado com LoginMoip") do
+            comissionado = {
+              :razao => "Uma divisao para qualquer",
+              :login_moip => "breno.oliveira",
+              :valor_fixo => 2.50,
+              :mostrar_para_pagador => true
+            }
+
+            expect { 
+                  Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+                          .add_split(comissionado)
+             }.to raise_error(Rmoip::MissingLoginMoip)
+          end
+          it ("deve ter um valor fixo ou percentual")
+        end
+
+        context "quando tem opcoes de parcelamento" do
+          it ("deve ter um minimo de parcelas") do
+            @parcel = {
+                    :min => -1,
                     :max => 5,
                     :juros => 2.99,
                     :repassar => true
                  }
-            @parcel2 = {
-                    :min => 6,
-                    :max => 7,
-                    :juros => 3.99
+
+            expect { 
+                  Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+                          .add_parcel(@parcel)
+             }.to raise_error(Rmoip::InvalidMinValue)
+          end
+          it ("deve ter um maximo de parcelas") do
+            @parcel = {
+                    :min => 1,
+                    :max => 120,
+                    :juros => 2.99,
+                    :repassar => true
                  }
-
-            moip = Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
-                          .add_parcel(@parcel1)
-                          .send(@cobranca)
-
-            puts "Response: #{moip.to_s}"
-
-        end
-        it ("deve ter uma razao do pagamento")
-        it ("deve ter um valor maior que 0")
-        context "quando tem comissionado" do
-          it ("deve ter um Comissionado com LoginMoip")
-          it ("deve ter um valor fixo ou percentual")
-        end
-        context "quando tem opcoes de parcelamento" do
-          it ("deve ter um minimo de parcelas")
-          it ("deve ter um maximo de parcelas")
+            expect {
+                  Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
+                          .add_parcel(@parcel)
+              }.to raise_error(Rmoip::InvalidMaxValue)
+          end
           it ("deve ter juros informado")
         end
       end
