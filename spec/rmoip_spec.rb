@@ -62,7 +62,7 @@ describe Rmoip do
         end
         it ("deve ter um valor maior que 0") do
             cobranca = {
-                        :valor => 0,
+                        :valor => "0",
                         :id_proprio => "qualquer_um",
                         :razao => "Qualquer motivo"
                       }

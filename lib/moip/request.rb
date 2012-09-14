@@ -17,7 +17,7 @@ module Rmoip
     def send(parameters)
       raise MissingIdProprioError, "É obrigatório informar um Id Proprio" if parameters[:id_proprio].nil?
       raise MissingRazaoError, "É obrigatório informar uma Razao" if parameters[:razao].nil?
-      raise InvalidBillValue, "O valor deve ser maior que 0" if parameters[:valor] <= 0
+      raise InvalidBillValue, "O valor deve ser maior que 0" if Float(parameters[:valor]) <= 0
       response = request_moip parameters
       response
     end
