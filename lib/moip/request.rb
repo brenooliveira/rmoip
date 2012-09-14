@@ -22,7 +22,7 @@ module Rmoip
     end
 
     def add_split(split)
-      raise MissingLoginMoip, "É obrigatório informar o LoginMoip" if parameters[:login_moip].nil?
+      raise MissingLoginMoip, "É obrigatório informar o LoginMoip" if split[:login_moip].nil?
       @splits.push split
       return self
     end

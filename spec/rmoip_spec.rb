@@ -58,7 +58,7 @@ describe Rmoip do
           it ("deve ter um Comissionado com LoginMoip") do
             comissionado = {
               :razao => "Uma divisao para qualquer",
-              :login_moip => "breno.oliveira",
+              # :login_moip => "breno.oliveira",
               :valor_fixo => 2.50,
               :mostrar_para_pagador => true
             }
