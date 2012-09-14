@@ -17,12 +17,14 @@ module Rmoip
     def send(parameters)
       raise MissingIdProprioError, "É obrigatório informar um Id Proprio" if parameters[:id_proprio].nil?
       raise MissingRazaoError, "É obrigatório informar uma Razao" if parameters[:razao].nil?
+      raise InvalidBillValue, "O valor deve ser maior que 0" if parameters[:valor] <= 0
       response = request_moip parameters
       response
     end
 
     def add_split(split)
       raise MissingLoginMoip, "É obrigatório informar o LoginMoip" if split[:login_moip].nil?
+      raise InvalidComissionValue, "Informe um valor percentual ou fixo" if split[:valor_fixo].nil? && split[:valor_percentual].nil?
       @splits.push split
       return self
     end
@@ -30,6 +32,7 @@ module Rmoip
     def add_parcel(parcel)
       raise InvalidMinValue, "O valor mínimo deve ser superior a 1" if parcel[:min] <= 0
       raise InvalidMaxValue, "Este valor não parece ser um valor válido" if parcel[:max] >= 18
+      raise MissingJurosError, "É obrigatorio informar o Juros" if parcel[:juros].nil?
       @parcels.push parcel
       return self
     end
@@ -49,6 +52,7 @@ module Rmoip
       options = { :base_uri => uri, :basic_auth => { :username => @token, :password => @key }, :body => xml }
       request = self.class.post "/ws/alpha/EnviarInstrucao/Unica", options
       response = Rmoip::ResponseApi.build request['EnviarInstrucaoUnicaResponse']['Resposta']
+      response.base_uri = uri
       response
     end
 
@@ -77,6 +81,9 @@ module Rmoip
   class InvalidEnvironmentErro < Exception
   end
 
+  class InvalidBillValue < Exception
+  end
+
   class MissingRazaoError < Exception
   end
 
@@ -87,5 +94,11 @@ module Rmoip
   end
 
   class MissingLoginMoip < Exception
+  end
+
+  class MissingJurosError < Exception
+  end
+
+  class InvalidComissionValue < Exception
   end
 end
