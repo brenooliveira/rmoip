@@ -24,60 +24,61 @@ describe Rmoip do
       context "quando validamos a instrucao" do
         it ("deve ter um id_propio informado") do
           @cobranca = {
-                        :valor => "8.90",
-                        :razao => "Um motivo qualquer",
-                        :pagador => {
-                          :nome => "Luiz Inácio Lula da Silva",
+                        :value => "8.90",
+                        :reason => "Um motivo qualquer",
+                        :payer => {
+                          :name => "Luiz Inácio Lula da Silva",
                           :email => "presidente@planalto.gov.br",
-                          :tel_cel => "(61)9999-9999",
-                          :apelido => "Lula",
-                          :identidade => "111.111.111-11",
-                          :logradouro => "Praça dos Três Poderes",
-                          :numero => "0",
-                          :complemento => "Palácio do Planalto",
-                          :bairro => "Zona Cívico-Administrativa",
-                          :cidade => "Brasília",
-                          :estado => "DF",
-                          :pais => "BRA",
-                          :cep => "70100-000",
-                          :tel_fixo => "(61)3211-1221"
+                          :payer_id => "um-id-qualquer",
+                          :mobile_phone => "(61)9999-9999",
+                          :nickname => "Lula",
+                          :identity => "111.111.111-11",
+                          :street => "Praça dos Três Poderes",
+                          :number => "0",
+                          :complement => "Palácio do Planalto",
+                          :neighborhood => "Zona Cívico-Administrativa",
+                          :city => "Brasília",
+                          :state => "DF",
+                          :country => "BRA",
+                          :zipcode => "70100-000",
+                          :phone => "(61)3211-1221"
                         }
                       }
 
             expect { 
                   Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
                           .send(@cobranca).validate()
-             }.to raise_error(Rmoip::MissingIdProprioError)
+             }.to raise_error(Rmoip::MissingUniqueIdError)
         end
         it ("deve ter uma razao do pagamento") do
           cobranca = {
-                        :valor => "8.90",
-                        :id_proprio => "qualquer_um"
+                        :value => "8.90",
+                        :unique_id => "qualquer_um"
                       }
 
           expect { 
                   Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
                           .send(cobranca).validate()
-             }.to raise_error(Rmoip::MissingRazaoError)
+             }.to raise_error(Rmoip::MissingReasonError)
         end
-        it ("deve ter um valor maior que 0") do
+        it ("deve ter um value maior que 0") do
             cobranca = {
-                        :valor => "0",
-                        :id_proprio => "qualquer_um",
-                        :razao => "Qualquer motivo"
+                        :value => 0,
+                        :unique_id => "qualquer_um",
+                        :reason => "Qualquer motivo"
                       }
 
             expect { 
                   Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
                           .send(cobranca).validate()
-             }.to raise_error(Rmoip::InvalidBillValue)
+             }.to raise_error(Rmoip::InvalidValue)
         end
         
         context "quando tem comissionado" do
           it ("deve ter um Comissionado com LoginMoip") do
             comissionado = {
-              :razao => "Uma divisao para qualquer",
-              :valor_fixo => 2.50,
+              :reason => "Uma divisao para qualquer",
+              :value_fixo => 2.50,
               :mostrar_para_pagador => true
             }
 
@@ -86,11 +87,11 @@ describe Rmoip do
                           .add_split(comissionado)
              }.to raise_error(Rmoip::MissingLoginMoip)
           end
-          it ("deve ter um valor fixo ou percentual") do
+          it ("deve ter um value fixo ou percentual") do
             comissionado = {
-              :razao => "Uma divisao para qualquer",
+              :reason => "Uma divisao para qualquer",
               :login_moip => "breno.oliveira",
-              :mostrar_para_pagador => true
+              :show_for_payer => true
             }
 
             expect { 
@@ -105,8 +106,8 @@ describe Rmoip do
             @parcel = {
                     :min => -1,
                     :max => 5,
-                    :juros => 2.99,
-                    :repassar => true
+                    :interest => 2.99,
+                    :transfer => true
                  }
 
             expect { 
@@ -118,8 +119,8 @@ describe Rmoip do
             @parcel = {
                     :min => 1,
                     :max => 120,
-                    :juros => 2.99,
-                    :repassar => true
+                    :interest => 2.99,
+                    :transfer => true
                  }
             expect {
                   Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")
@@ -130,7 +131,7 @@ describe Rmoip do
             parcel = {
                     :min => 1,
                     :max => 12,
-                    :repassar => true
+                    :transfer => true
                  }
             expect {
                   Rmoip.sandbox("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB")

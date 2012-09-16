@@ -6,34 +6,35 @@ module Rmoip
         xml.EnviarInstrucao {
             xml.InstrucaoUnica {
                xml.Razao {
-                xml.text parameters[:razao]
+                xml.text parameters[:reason]
               }
               xml.Valores {
                 xml.Valor(:moeda => "BRL") {
-                  xml.text parameters[:valor]
+                  xml.text parameters[:value]
                 }
               }
               xml.IdProprio {
-                xml.text parameters[:id_proprio]
+                xml.text parameters[:unique_id]
               }
 
-              xml.Pagador {
-                xml.Nome { xml.text parameters[:pagador][:nome] }
-                xml.LoginMoIP { xml.text parameters[:pagador][:login_moip] }
-                xml.Email { xml.text parameters[:pagador][:email] }
-                xml.TelefoneCelular { xml.text parameters[:pagador][:tel_cel] }
-                xml.Apelido { xml.text parameters[:pagador][:apelido] }
-                xml.Identidade(:Tipo => "CPF") { xml.text parameters[:pagador][:identidade] }
+              xml.payer {
+                xml.Nome { xml.text parameters[:payer][:nome] }
+                xml.LoginMoIP { xml.text parameters[:payer][:login_moip] }
+                xml.PagadorId{ xml.text parameters[:payer][:payer_id] }
+                xml.Email { xml.text parameters[:payer][:email] }
+                xml.TelefoneCelular { xml.text parameters[:payer][:mobile_phone] }
+                xml.Apelido { xml.text parameters[:payer][:nickname] }
+                xml.Identidade(:Tipo => "CPF") { xml.text parameters[:payer][:identity] }
                 xml.EnderecoCobranca {
-                  xml.Logradouro { xml.text parameters[:pagador][:logradouro] }
-                  xml.Numero { xml.text parameters[:pagador][:numero] }
-                  xml.Complemento { xml.text parameters[:pagador][:complemento] }
-                  xml.Bairro { xml.text parameters[:pagador][:bairro] }
-                  xml.Cidade { xml.text parameters[:pagador][:cidade] }
-                  xml.Estado { xml.text parameters[:pagador][:estado] }
-                  xml.Pais { xml.text parameters[:pagador][:pais] }
-                  xml.CEP { xml.text parameters[:pagador][:cep] }
-                  xml.TelefoneFixo { xml.text parameters[:pagador][:tel_fixo] }
+                  xml.Logradouro { xml.text parameters[:payer][:street] }
+                  xml.Numero { xml.text parameters[:payer][:number] }
+                  xml.Complemento { xml.text parameters[:payer][:complement] }
+                  xml.Bairro { xml.text parameters[:payer][:neighborhood] }
+                  xml.Cidade { xml.text parameters[:payer][:city] }
+                  xml.Estado { xml.text parameters[:payer][:state] }
+                  xml.Pais { xml.text parameters[:payer][:country] }
+                  xml.CEP { xml.text parameters[:payer][:zipcode] }
+                  xml.TelefoneFixo { xml.text parameters[:payer][:phone] }
                 }
               }
 
@@ -48,10 +49,10 @@ module Rmoip
                 xml.Comissoes {
                   parameters[:comissoes].each do |split|
                     xml.Comissionamento {
-                      xml.Razao { xml.text split[:razao] }
+                      xml.Razao { xml.text split[:reason] }
                       xml.ValorPercentual { xml.text split[:valor_percentual] }
                       xml.ValorFixo { xml.text split[:valor_fixo] }
-                      xml.MostrarParaPagador { xml.text split[:mostrar_para_pagador] }
+                      xml.MostrarParapayer { xml.text split[:show_for_payer] }
                       xml.Parcelada { xml.text split[:parcelada] }
                       xml.Comissionado {
                         xml.LoginMoIP { xml.text split[:login_moip] }
@@ -67,8 +68,8 @@ module Rmoip
                       xml.Parcelamento {
                         xml.MinimoParcelas { xml.text parcel[:min] }
                         xml.MaximoParcelas { xml.text parcel[:max] }
-                        xml.Juros { xml.text parcel[:juros] }
-                        xml.Repassar { xml.text parcel[:repassar] }
+                        xml.Juros { xml.text parcel[:nterest] }
+                        xml.Repassar { xml.text parcel[:transfer] }
 
                       }
                     end
