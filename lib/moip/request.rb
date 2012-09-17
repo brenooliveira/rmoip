@@ -59,7 +59,7 @@ module Rmoip
     def prepare_hash(parameters)
       parameters[:parcelamentos] = @parcels
       parameters[:comissoes] = @splits
-      parameters[:validate] - @is_to_validate
+      parameters[:validate] = @is_to_validate
       xml = Rmoip::InstrucaoUnica.make_xml parameters      
     end
 
