@@ -1,5 +1,41 @@
 module Rmoip
   class InstrucaoUnica
+    include Commons
+
+    def valid?
+      # TODO implement this
+      true
+    end
+
+    def pagador(&block)
+      @pagador ||= Pagador.new(&block)
+    end
+
+    def to_xml
+      Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
+        xml.EnviarInstrucao {
+          xml.InstrucaoUnica {
+            xml.Razao razao
+
+            xml.payer {
+              # TODO melhorar isso daqui
+              xml.Nome pagador.nome
+            }
+          }
+        }
+      end.to_xml
+    end
+
+    def hash
+      {
+        :EnviarInstrucao => {
+          :InstrucaoUnica => {
+            :Razao => razao
+          }
+        }
+      }
+    end
+
 
     def self.make_xml(parameters)
       builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
@@ -84,6 +120,12 @@ module Rmoip
         end
       end
       builder.to_xml
+    end
+
+    private
+
+    def valid_attr
+      [ :razao, :id_proprio, :valor, :pagador ]
     end
 
   end
