@@ -9,8 +9,8 @@ module Rmoip
 
         def self.build(params)
         	response = self.new
-        	response.token = params["Token"]
-        	response.status = params["Status"]
+        	response.token = params["Token"] if !params["Token"].nil?
+        	response.status = params["Status"] if !params["Status"].nil?
         	params["Erro"].each do |erro|
                 response.errors.push erro
         	end
@@ -26,7 +26,7 @@ module Rmoip
         end
 
         def to_s
-            "token #{token}, status: #{status}, Total de error: #{errors}"
+            "token #{@token}, status: #{@status}, Total de error: #{@errors}"
         end
 	end
 end
