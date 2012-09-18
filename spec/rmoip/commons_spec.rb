@@ -34,4 +34,12 @@ describe Rmoip::Commons do
       }.to raise_error NoMethodError, "Method required_attr must be implemented"
     end
   end
+
+  context "#initialize sem passar block" do
+    let(:commons) { TestCommons.new }
+
+    it "cria um objeto" do
+      commons.should_not be_nil
+    end
+  end
 end
