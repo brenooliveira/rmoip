@@ -16,14 +16,13 @@ module Rmoip
         xml.EnviarInstrucao {
           xml.InstrucaoUnica {
             xml.Razao razao
-
-            xml.payer {
-              # TODO melhorar isso daqui
+            xml.Pagador {
               xml.Nome pagador.nome
             }
           }
         }
       end.to_xml
+
     end
 
     def hash

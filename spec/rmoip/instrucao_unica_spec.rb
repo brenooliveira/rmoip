@@ -46,9 +46,9 @@ describe Rmoip::InstrucaoUnica do
 <EnviarInstrucao>
   <InstrucaoUnica>
     <Razao>uma razao qualquer</Razao>
-    <payer>
+    <Pagador>
       <Nome>Pagador Moip</Nome>
-    </payer>
+    </Pagador>
   </InstrucaoUnica>
 </EnviarInstrucao>
       XML

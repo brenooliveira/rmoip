@@ -8,8 +8,11 @@ module Rmoip
 
     def to_xml
       Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
-        xml.nome nome
-      end.to_xml
+        xml.Pagador {
+          xml.nome nome
+          xml.LoginMoip login_moip
+        }
+      end.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
     end
 
     private
