@@ -1,14 +1,17 @@
+# encoding: utf-8
+
 require "spec_helper"
 
 describe Rmoip::Comissao do
   let(:comissao) do
     described_class.new do
       razao "Razao da comissao"
-      valor_percentual "30%"
+      valor_percentual 30.0
       valor_fixo 3.45
       mostrar_para_payer true
       parcelada true
       comissionado "login_comissionado"
+      pagador_taxa "login_pagador_taxa"
     end
   end
 
@@ -18,7 +21,7 @@ describe Rmoip::Comissao do
     end
 
     it "com valor percentual" do
-      comissao.valor_percentual.should eq "30%"
+      comissao.valor_percentual.should eq "30.0"
     end
 
     it "com valor fixo" do
@@ -37,6 +40,27 @@ describe Rmoip::Comissao do
       comissao.comissionado.should eq "login_comissionado"
     end
 
+    it  "com pagador taxa" do
+      comissao.pagador_taxa.should eq "login_pagador_taxa"
+    end
+  end
+
+  context "validações" do
+    it "válido se completo" do
+      comissao.should be_valid
+    end
+
+    it "inválido se sem comissionado" do
+      comissao.comissionado nil
+
+      comissao.should_not be_valid
+    end
+
+    it "inválido se sem razao" do
+      comissao.razao nil
+
+      comissao.should_not be_valid
+    end
 
   end
 
