@@ -7,6 +7,8 @@ module Rmoip
     end
 
     def method_missing(method, *args)
+      raise NoMethodError, "Method valid_attr must be implemented" if method == :valid_attr
+      raise NoMethodError, "Method required_attr must be implemented" if method == :required_attr
       super unless valid_attr.include? method
 
       if args.size > 0
