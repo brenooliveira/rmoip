@@ -1,14 +1,14 @@
 require "rubygems"
 require "httparty"
 require "nokogiri"
-require "moip/request"
-require "moip/commons"
-require "moip/instrucao_unica"
-require "moip/pagador"
-require "moip/endereco"
-require "moip/parcelamento"
+require "rmoip/request"
+require "rmoip/commons"
+require "rmoip/instrucao_unica"
+require "rmoip/pagador"
+require "rmoip/endereco"
+require "rmoip/parcelamento"
 require "rmoip/comissao"
-require "moip/response_api"
+require "rmoip/response_api"
 
 module Rmoip
 
