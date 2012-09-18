@@ -6,6 +6,7 @@ require "moip/commons"
 require "moip/instrucao_unica"
 require "moip/pagador"
 require "moip/endereco"
+require "moip/parcelamento"
 require "moip/response_api"
 
 module Rmoip
