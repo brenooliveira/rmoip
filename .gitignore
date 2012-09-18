@@ -8,3 +8,4 @@ pkg
 dist
 exec
 .bundle
+*.swp
