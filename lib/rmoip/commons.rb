@@ -29,5 +29,9 @@ module Rmoip
 
       true
     end
+
+    def require_attr
+      []
+    end
   end
 end

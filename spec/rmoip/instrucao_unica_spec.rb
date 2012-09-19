@@ -22,6 +22,10 @@ describe Rmoip::InstrucaoUnica do
 
       url_retorno "http://meusite.com.br/"
       url_notificacao "http://meusite.com.br/notificacao/"
+
+      recebedor do
+        login_moip "recebedor_login"
+      end
     end
   end
 
@@ -52,6 +56,10 @@ describe Rmoip::InstrucaoUnica do
 
     it "com url notificacao" do
       instrucao_unica.url_notificacao.should eq "http://meusite.com.br/notificacao/"
+    end
+
+    it "com recebedor" do
+      instrucao_unica.recebedor.login_moip.should eq "recebedor_login"
     end
 
   end

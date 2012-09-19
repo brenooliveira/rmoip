@@ -21,6 +21,10 @@ module Rmoip
       @plots.push parcel
     end
 
+    def recebedor(&block)
+      @recebedor ||= Recebedor.new(&block)
+    end
+
     def to_xml
       xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {

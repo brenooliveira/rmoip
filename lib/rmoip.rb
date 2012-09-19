@@ -9,6 +9,7 @@ require "rmoip/pagador"
 require "rmoip/endereco"
 require "rmoip/parcelamento"
 require "rmoip/comissao"
+require "rmoip/recebedor"
 require "rmoip/response_api"
 
 module Rmoip
