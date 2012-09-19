@@ -6,7 +6,8 @@ gem "json"
 gem "httparty"
 gem "nokogiri"
 gem "rake"
-gem 'rb-readline'
+gem "rb-readline"
+gem "builder"
 
 group :development do
   gem "rspec"

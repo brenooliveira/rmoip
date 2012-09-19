@@ -11,8 +11,18 @@ module Rmoip
       @pagador ||= Pagador.new(&block)
     end
 
+    def add_split(&block)
+      comissao ||= Comissao.new(&block)
+      # @commissioned.push comissao
+    end
+
+    def add_parcel(&block)
+      parcel ||= Parcelamento.new(&block)
+      @plots.push parcel
+    end
+
     def to_xml
-      Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
+      xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {
           xml.InstrucaoUnica {
             xml.Razao razao
@@ -22,7 +32,6 @@ module Rmoip
           }
         }
       end.to_xml
-
     end
 
     def hash
@@ -124,7 +133,7 @@ module Rmoip
     private
 
     def valid_attr
-      [ :razao, :id_proprio, :valor, :pagador ]
+      [ :razao, :id_proprio, :valor, :pagador, :plots,  :commissioned]
     end
 
   end

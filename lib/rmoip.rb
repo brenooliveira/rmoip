@@ -1,6 +1,7 @@
 require "rubygems"
 require "httparty"
 require "nokogiri"
+require "builder"
 require "rmoip/request"
 require "rmoip/commons"
 require "rmoip/instrucao_unica"
@@ -20,7 +21,6 @@ module Rmoip
         self.request token, key, :PRODUCAO
     end
 
-    private
 	def self.request(token, key, env)
 	  env = :PRODUCAO if env.nil? || env != :SANDBOX
 	  Request.new(token, key, env)

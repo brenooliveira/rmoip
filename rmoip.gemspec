@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.date        = '2012-07-18'
   s.summary     = "Rmoip é uma maneira simples de utilizar o moip como forma de pagamento"
   s.description = "Rmoip é uma maneira simples de utilizar o moip como forma de pagamento essa lib permite integração com o Moip Transparente"
-  s.authors     = ["Breno Oliveira"]
+  s.authors     = ["Breno Oliveira", "Rodrigo  Saito"]
   s.email       = 'breno26@gmail.com'
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = 'http://rubygems.org/gems/rmoip'

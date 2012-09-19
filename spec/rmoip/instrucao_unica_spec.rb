@@ -14,6 +14,11 @@ describe Rmoip::InstrucaoUnica do
         nome "Pagador Moip"
         login_moip "pagador"
       end
+
+      add_split do
+        razao "Uma razao qualquer"
+        valor_fixo "20.10"
+      end
     end
   end
 
