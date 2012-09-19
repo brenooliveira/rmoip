@@ -19,6 +19,9 @@ describe Rmoip::InstrucaoUnica do
         razao "Uma razao qualquer"
         valor_fixo "20.10"
       end
+
+      url_retorno "http://meusite.com.br/"
+      url_notificacao "http://meusite.com.br/notificacao/"
     end
   end
 
@@ -42,6 +45,15 @@ describe Rmoip::InstrucaoUnica do
     it "com pagador" do
       instrucao_unica.pagador.nome.should eq "Pagador Moip"
     end
+
+    it "com url retorno" do
+      instrucao_unica.url_retorno.should eq "http://meusite.com.br/"
+    end
+
+    it "com url notificacao" do
+      instrucao_unica.url_notificacao.should eq "http://meusite.com.br/notificacao/"
+    end
+
   end
 
   context "#to_xml" do
@@ -53,6 +65,7 @@ describe Rmoip::InstrucaoUnica do
     <Razao>uma razao qualquer</Razao>
     <Pagador>
       <Nome>Pagador Moip</Nome>
+      <LoginMoip>pagador</LoginMoip>
     </Pagador>
   </InstrucaoUnica>
 </EnviarInstrucao>

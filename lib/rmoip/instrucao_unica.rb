@@ -26,8 +26,8 @@ module Rmoip
         xml.EnviarInstrucao {
           xml.InstrucaoUnica {
             xml.Razao razao
-            xml.Pagador {
-              xml.Nome pagador.nome
+            xml.Pagador { |x|
+              pagador.to_xml(x)
             }
           }
         }
@@ -133,7 +133,7 @@ module Rmoip
     private
 
     def valid_attr
-      [ :razao, :id_proprio, :valor, :pagador, :plots,  :commissioned]
+      [ :razao, :id_proprio, :valor, :pagador, :plots,  :commissioned, :url_retorno, :url_notificacao ]
     end
 
   end
