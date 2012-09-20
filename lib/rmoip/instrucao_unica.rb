@@ -29,6 +29,10 @@ module Rmoip
       @forma_pagamento ||= FormasPagamento.new(&block)
     end
 
+    def mensagens(&block)
+      @mensagens ||= Mensagens.new(&block)
+    end
+
     def to_xml
       xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {

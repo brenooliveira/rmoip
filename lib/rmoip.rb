@@ -12,6 +12,7 @@ require "rmoip/comissao"
 require "rmoip/recebedor"
 require "rmoip/formas_pagamento"
 require "rmoip/boleto"
+require "rmoip/mensagens"
 require "rmoip/response_api"
 
 module Rmoip

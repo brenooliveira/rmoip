@@ -30,6 +30,10 @@ describe Rmoip::InstrucaoUnica do
       formas_pagamento do
         boleto_bancario
       end
+
+      mensagens {
+        mensagem "Produto adquirido no site ABC"
+      }
     end
   end
 
@@ -68,6 +72,10 @@ describe Rmoip::InstrucaoUnica do
 
     it "com formas de pagamento" do
       instrucao_unica.formas_pagamento.should include :boleto_bancario
+    end
+
+    it "com mensagens" do
+      instrucao_unica.mensagens.size.should eq 1
     end
 
   end
