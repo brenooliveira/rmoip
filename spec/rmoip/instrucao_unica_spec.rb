@@ -26,6 +26,10 @@ describe Rmoip::InstrucaoUnica do
       recebedor do
         login_moip "recebedor_login"
       end
+
+      formas_pagamento do
+        boleto_bancario
+      end
     end
   end
 
@@ -60,6 +64,10 @@ describe Rmoip::InstrucaoUnica do
 
     it "com recebedor" do
       instrucao_unica.recebedor.login_moip.should eq "recebedor_login"
+    end
+
+    it "com formas de pagamento" do
+      instrucao_unica.formas_pagamento.should include :boleto_bancario
     end
 
   end
