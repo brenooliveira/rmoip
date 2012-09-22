@@ -12,11 +12,13 @@ module Rmoip
     end
 
     def add_split(&block)
+      @commissioned = [] if @commissioned.nil?
       comissao ||= Comissao.new(&block)
-      # @commissioned.push comissao
+      @commissioned.push comissao
     end
 
     def add_parcel(&block)
+      @plots = [] if @plots.nil?
       parcel ||= Parcelamento.new(&block)
       @plots.push parcel
     end
