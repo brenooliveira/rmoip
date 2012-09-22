@@ -17,24 +17,6 @@ describe Rmoip::Commons do
     end
   end
 
-  context "quando required_attr não é implementado" do
-    before do
-      class TestCommons
-        def valid_attr
-          []
-        end
-      end
-    end
-
-    let(:commons) { TestCommons.new {} }
-
-    it "raise NoMethodError for  required_attr" do
-      expect {
-        commons.valid?
-      }.to raise_error NoMethodError, "Method required_attr must be implemented"
-    end
-  end
-
   context "#initialize sem passar block" do
     let(:commons) { TestCommons.new }
 

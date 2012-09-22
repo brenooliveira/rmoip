@@ -30,7 +30,7 @@ module Rmoip
       true
     end
 
-    def require_attr
+    def required_attr
       []
     end
   end
