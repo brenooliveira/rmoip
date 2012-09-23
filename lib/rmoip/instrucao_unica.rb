@@ -7,8 +7,8 @@ module Rmoip
       true
     end
 
-    def pagador(&block)
-      @pagador ||= Pagador.new(&block)
+    def pagador(*args, &block)
+      @pagador ||= with_block(Pagador, &block) || with_param(*args)
     end
 
     def add_split(&block)
@@ -23,16 +23,16 @@ module Rmoip
       @plots.push parcel
     end
 
-    def recebedor(&block)
-      @recebedor ||= Recebedor.new(&block)
+    def recebedor(*args, &block)
+      @recebedor ||= with_block(Recebedor, &block) || with_param(*args)
     end
 
-    def formas_pagamento(&block)
-      @forma_pagamento ||= FormasPagamento.new(&block)
+    def formas_pagamento(*args, &block)
+      @formas_pagamento ||= with_block(FormasPagamento, &block) || with_param(*args)
     end
 
-    def mensagens(&block)
-      @mensagens ||= Mensagens.new(&block)
+    def mensagens(*args, &block)
+      @mensagens ||= with_block(Mensagens, &block) || with_param(*args)
     end
 
     def to_xml
@@ -149,6 +149,15 @@ module Rmoip
     def valid_attr
       [ :razao, :id_proprio, :valor, :pagador, :plots,  :commissioned, :url_retorno, :url_notificacao ]
     end
+
+    def with_block(klass, &block)
+      klass.new &block if block_given?
+    end
+
+    def with_param(*args)
+      args.first unless args.empty?
+    end
+
 
   end
 end

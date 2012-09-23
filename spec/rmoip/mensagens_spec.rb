@@ -15,4 +15,10 @@ describe  Rmoip::Mensagens do
       mensagens.size.should eq 2
     end
   end
+
+  context "#include?" do
+    it "verifica se mensagem existe" do
+      mensagens.include? "Produto adquirido no site ABC"
+    end
+  end
 end
