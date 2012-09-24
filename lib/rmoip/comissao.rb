@@ -5,7 +5,7 @@ module Rmoip
     private
     def valid_attr
       [ :razao, :valor_percentual, :valor_fixo, :mostrar_para_payer,
-        :parcelada, :comissionado, :pagador_taxa ]
+        :parcelada, :comissionado ]
     end
 
     def required_attr

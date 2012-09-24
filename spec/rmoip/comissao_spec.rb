@@ -11,7 +11,6 @@ describe Rmoip::Comissao do
       mostrar_para_payer true
       parcelada true
       comissionado "login_comissionado"
-      pagador_taxa "login_pagador_taxa"
     end
   end
 
@@ -38,10 +37,6 @@ describe Rmoip::Comissao do
 
     it "com comissionado" do
       comissao.comissionado.should eq "login_comissionado"
-    end
-
-    it  "com pagador taxa" do
-      comissao.pagador_taxa.should eq "login_pagador_taxa"
     end
   end
 
