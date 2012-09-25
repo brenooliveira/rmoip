@@ -199,6 +199,99 @@ describe Rmoip::InstrucaoUnica do
     end
   end
 
+  describe "#comissoes" do
+    context "passando block" do
+      let :instrucao_unica do
+        described_class.new do
+          comissoes do
+            add do
+              comissionado "login_comissionado"
+            end
+          end
+        end
+      end
+
+      it "cria comissoes" do
+        instrucao_unica.comissoes.size.should eq 1
+      end
+    end
+
+    context "passando parametro" do
+      let :comissoes do
+        Rmoip::Comissoes.new do
+          add do
+            comissionado "login_comissionado"
+          end
+        end
+      end
+
+      before do
+        instrucao_unica.comissoes comissoes
+      end
+
+      it "set comissoes" do
+        instrucao_unica.comissoes.should equal(comissoes)
+      end
+    end
+
+    context "sem parametro" do
+      let :comissoes do
+        Rmoip::Comissoes.new do
+          add do
+            comissionado "login_comissionado"
+          end
+        end
+      end
+
+      context "quando comissoes nao foi setado" do
+        it "retorna nil" do
+          instrucao_unica.comissoes.should be_nil
+        end
+      end
+
+      context "quando comissoes foi setado" do
+        before { instrucao_unica.comissoes comissoes }
+
+        it "retorna comissoes" do
+          instrucao_unica.comissoes.should equal comissoes
+        end
+      end
+    end
+  end
+
+  describe "#to_xml" do
+    context "instrucao unica minima" do
+      let :instrucao_unica do
+        described_class.new do
+          razao "uma razao qualquer"
+          valor 12.23
+        end
+      end
+
+      let :xml do
+        instrucao_unica.to_xml
+      end
+
+      it "cria xml" do
+        xml.should eq <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<EnviarInstrucao>
+  <InstrucaoUnica>
+    <Razao>uma razao qualquer</Razao>
+    <Valores>
+      <Valor moeda="BRL">12.23</Valor>
+    </Valores>
+  </InstrucaoUnica>
+</EnviarInstrucao>
+        XML
+      end
+
+
+
+    end
+
+  end
+
 # TODO criar completo
 =begin
   context "completo" do

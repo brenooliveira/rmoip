@@ -34,4 +34,12 @@ describe Rmoip::Comissoes do
       end
     end
   end
+
+  describe "#size" do
+    let(:comissoes) { described_class.new }
+
+    it "retorna a quantidade de comissoes" do
+      comissoes.size.should eq 0
+    end
+  end
 end

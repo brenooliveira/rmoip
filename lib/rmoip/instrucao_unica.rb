@@ -11,12 +11,6 @@ module Rmoip
       @pagador ||= with_block(Pagador, &block) || with_param(*args)
     end
 
-    def add_split(&block)
-      @commissioned = [] if @commissioned.nil?
-      comissao ||= Comissao.new(&block)
-      @commissioned.push comissao
-    end
-
     def add_parcel(&block)
       @plots = [] if @plots.nil?
       parcel ||= Parcelamento.new(&block)
@@ -35,29 +29,25 @@ module Rmoip
       @mensagens ||= with_block(Mensagens, &block) || with_param(*args)
     end
 
+    def comissoes(*args, &block)
+      @comissoes ||= with_block(Comissoes, &block) || with_param(*args)
+    end
+
     def to_xml
-      xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
+      Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
         xml.EnviarInstrucao {
           xml.InstrucaoUnica {
             xml.Razao razao
-            xml.Pagador { |x|
-              pagador.to_xml(x)
+            xml.Valores {
+              xml.Valor(:moeda => "BRL") {
+                xml.text valor
+              }
+
             }
           }
         }
       end.to_xml
     end
-
-    def hash
-      {
-        :EnviarInstrucao => {
-          :InstrucaoUnica => {
-            :Razao => razao
-          }
-        }
-      }
-    end
-
 
     def self.make_xml(parameters)
       builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
