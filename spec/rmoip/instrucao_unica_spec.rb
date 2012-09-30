@@ -261,15 +261,11 @@ describe Rmoip::InstrucaoUnica do
 
   describe "#to_xml" do
     context "instrucao unica minima" do
-      let :instrucao_unica do
+      let :xml do
         described_class.new do
           razao "uma razao qualquer"
           valor 12.23
-        end
-      end
-
-      let :xml do
-        instrucao_unica.to_xml
+        end.to_xml
       end
 
       it "cria xml" do
@@ -285,11 +281,52 @@ describe Rmoip::InstrucaoUnica do
 </EnviarInstrucao>
         XML
       end
-
-
-
     end
 
+    context "instrucao unica completa" do
+      let :xml do
+        described_class.new do
+          razao "uma razao qualquer"
+          valor 12.23
+          id_proprio "ABC123456789"
+
+          comissoes do
+            add do
+              comissionado "recebedor_secundario"
+              razao "Motivo da comissão"
+              valor_fixo "10.00"
+              valor_percentual "12.00"
+            end
+          end
+        end.to_xml
+      end
+
+      it "cria xml" do
+        xml.should eq <<-XML
+<?xml version="1.0" encoding="UTF-8"?>
+<EnviarInstrucao>
+  <InstrucaoUnica>
+    <Razao>uma razao qualquer</Razao>
+    <Valores>
+      <Valor moeda="BRL">12.23</Valor>
+    </Valores>
+    <IdProprio>ABC123456789</IdProprio>
+    <Comissoes>
+      <Comissionamento>
+        <Comissionado>
+          <LoginMoIP>recebedor_secundario</LoginMoIP>
+        </Comissionado>
+        <Razao>Motivo da comissão</Razao>
+        <ValorFixo>10.00</ValorFixo>
+        <ValorPercentual>12.00</ValorPercentual>
+      </Comissionamento>
+    </Comissoes>
+  </InstrucaoUnica>
+</EnviarInstrucao>
+        XML
+      end
+
+    end
   end
 
 # TODO criar completo

@@ -15,5 +15,19 @@ module Rmoip
       @comissionados << args.first unless args.empty?
     end
 
+    def to_xml(builder)
+      builder.Comissionamento do |comissionamento|
+        @comissionados.each do |c|
+          comissionamento.Comissionado do |comissionado|
+            comissionado.LoginMoIP c.comissionado
+          end
+
+          comissionamento.Razao c.razao
+          comissionamento.ValorFixo c.valor_fixo if c.valor_fixo
+          comissionamento.ValorPercentual c.valor_percentual if c.valor_percentual
+        end
+      end
+    end
+
   end
 end

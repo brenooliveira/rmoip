@@ -34,19 +34,25 @@ module Rmoip
     end
 
     def to_xml
-      Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
-        xml.EnviarInstrucao {
-          xml.InstrucaoUnica {
-            xml.Razao razao
-            xml.Valores {
-              xml.Valor(:moeda => "BRL") {
-                xml.text valor
-              }
+      builder = Builder::XmlMarkup.new :indent => 2
+      builder.instruct!
+      builder.EnviarInstrucao do |enviar_instrucao|
+        enviar_instrucao.InstrucaoUnica do |instrucao_unica|
+          instrucao_unica.Razao razao
 
-            }
-          }
-        }
-      end.to_xml
+          instrucao_unica.Valores do |valores|
+            valores.Valor valor, "moeda" => "BRL"
+          end
+
+          instrucao_unica.IdProprio id_proprio if id_proprio
+
+          if comissoes
+            instrucao_unica.Comissoes do |c|
+              comissoes.to_xml c
+            end
+          end
+        end
+      end
     end
 
     def self.make_xml(parameters)
