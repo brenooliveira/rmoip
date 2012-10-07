@@ -57,10 +57,7 @@ describe Rmoip::Comissoes do
 
       context "sem parametros" do
         let(:xml) do
-          builder = Builder::XmlMarkup.new :indent => 2
-          builder.Comissoes do |xml|
-            comissoes.to_xml xml
-          end
+          comissoes.to_xml
         end
 
         it "cria xml" do
@@ -93,10 +90,7 @@ describe Rmoip::Comissoes do
 
       context "sem parametros" do
         let(:xml) do
-          builder = Builder::XmlMarkup.new :indent => 2
-          builder.Comissoes do |xml|
-            comissoes.to_xml xml
-          end
+          comissoes.to_xml
         end
 
         it "cria xml" do

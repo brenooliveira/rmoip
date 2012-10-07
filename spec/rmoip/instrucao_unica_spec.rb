@@ -311,16 +311,16 @@ describe Rmoip::InstrucaoUnica do
       <Valor moeda="BRL">12.23</Valor>
     </Valores>
     <IdProprio>ABC123456789</IdProprio>
-    <Comissoes>
-      <Comissionamento>
-        <Comissionado>
-          <LoginMoIP>recebedor_secundario</LoginMoIP>
-        </Comissionado>
-        <Razao>Motivo da comissão</Razao>
-        <ValorFixo>10.00</ValorFixo>
-        <ValorPercentual>12.00</ValorPercentual>
-      </Comissionamento>
-    </Comissoes>
+<Comissoes>
+  <Comissionamento>
+    <Comissionado>
+      <LoginMoIP>recebedor_secundario</LoginMoIP>
+    </Comissionado>
+    <Razao>Motivo da comissão</Razao>
+    <ValorFixo>10.00</ValorFixo>
+    <ValorPercentual>12.00</ValorPercentual>
+  </Comissionamento>
+</Comissoes>
   </InstrucaoUnica>
 </EnviarInstrucao>
         XML

@@ -34,23 +34,19 @@ module Rmoip
     end
 
     def to_xml
-      builder = Builder::XmlMarkup.new :indent => 2
+      builder = Builder::XmlMarkup.new(:indent => 2)
       builder.instruct!
-      builder.EnviarInstrucao do |enviar_instrucao|
-        enviar_instrucao.InstrucaoUnica do |instrucao_unica|
-          instrucao_unica.Razao razao
+      builder.EnviarInstrucao do |xml|
+        xml.InstrucaoUnica do
+          xml.Razao razao
 
-          instrucao_unica.Valores do |valores|
-            valores.Valor valor, "moeda" => "BRL"
+          xml.Valores do
+            xml.Valor valor, "moeda" => "BRL"
           end
 
-          instrucao_unica.IdProprio id_proprio if id_proprio
+          xml.IdProprio id_proprio if id_proprio
 
-          if comissoes
-            instrucao_unica.Comissoes do |c|
-              comissoes.to_xml c
-            end
-          end
+          xml << comissoes.to_xml if comissoes
         end
       end
     end
