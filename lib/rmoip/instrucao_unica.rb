@@ -34,7 +34,7 @@ module Rmoip
     end
 
     def to_xml
-      builder = Builder::XmlMarkup.new(:indent => 2)
+      builder = Builder::XmlMarkup.new
       builder.instruct!
       builder.EnviarInstrucao do |xml|
         xml.InstrucaoUnica do

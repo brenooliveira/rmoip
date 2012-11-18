@@ -16,7 +16,7 @@ module Rmoip
     end
 
     def to_xml
-      Builder::XmlMarkup.new(:indent => 2).Comissoes do |xml|
+      Builder::XmlMarkup.new.Comissoes do |xml|
         @comissionados.each do |c|
           xml.Comissionamento do
             xml.Comissionado do

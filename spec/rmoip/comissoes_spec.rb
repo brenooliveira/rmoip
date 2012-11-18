@@ -60,8 +60,8 @@ describe Rmoip::Comissoes do
           comissoes.to_xml
         end
 
-        it "cria xml" do
-          xml.should eq <<-XML
+        let(:expected_xml) do
+          <<-XML
 <Comissoes>
   <Comissionamento>
     <Comissionado>
@@ -72,6 +72,10 @@ describe Rmoip::Comissoes do
   </Comissionamento>
 </Comissoes>
           XML
+        end
+
+        it "cria xml" do
+          xml.should eq expected_xml.remove_spaces
         end
       end
     end
@@ -93,8 +97,8 @@ describe Rmoip::Comissoes do
           comissoes.to_xml
         end
 
-        it "cria xml" do
-          xml.should eq <<-XML
+        let(:expected_xml) do
+          <<-XML
 <Comissoes>
   <Comissionamento>
     <Comissionado>
@@ -106,6 +110,10 @@ describe Rmoip::Comissoes do
   </Comissionamento>
 </Comissoes>
           XML
+        end
+
+        it "cria xml" do
+          xml.should eq expected_xml.remove_spaces
         end
       end
     end

@@ -268,8 +268,8 @@ describe Rmoip::InstrucaoUnica do
         end.to_xml
       end
 
-      it "cria xml" do
-        xml.should eq <<-XML
+      let :expected_xml do
+        <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <EnviarInstrucao>
   <InstrucaoUnica>
@@ -280,6 +280,10 @@ describe Rmoip::InstrucaoUnica do
   </InstrucaoUnica>
 </EnviarInstrucao>
         XML
+      end
+
+      it "cria xml" do
+        xml.should eq expected_xml.remove_spaces
       end
     end
 
@@ -301,8 +305,8 @@ describe Rmoip::InstrucaoUnica do
         end.to_xml
       end
 
-      it "cria xml" do
-        xml.should eq <<-XML
+      let :expected_xml do
+        <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <EnviarInstrucao>
   <InstrucaoUnica>
@@ -324,6 +328,10 @@ describe Rmoip::InstrucaoUnica do
   </InstrucaoUnica>
 </EnviarInstrucao>
         XML
+      end
+
+      it "cria xml" do
+        xml.should eq expected_xml.remove_spaces
       end
 
     end
