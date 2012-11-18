@@ -2,26 +2,21 @@ module Rmoip
   class Pagador
     include Commons
 
-    def endereco_cobranca(&block)
-      @endereco_cobranca ||= Endereco.new &block
+    def endereco_cobranca(*args, &block)
+      @endereco_cobranca ||= with_block(Endereco, &block) || with_param(*args)
     end
 
-    def to_xml(*args)
-      if args.size == 1
-        xml = args.first
+    def to_xml
+      Builder::XmlMarkup.new.Pagador do |xml|
+        xml.Nome nome if nome
+        xml.LoginMoIP login_moip if login_moip
+        xml.Email email if email
+        xml.TelefoneCelular telefone_celular if telefone_celular
+        xml.Apelido apelido if apelido
+        xml.Identidade identidade if identidade
 
-        xml.Nome nome
-        xml.LoginMoip login_moip
+        xml << endereco_cobranca.to_xml if endereco_cobranca
       end
-      # TODO precisa implementar quando o builder nao recebe nenhum parametro?
-=begin
-      Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
-        xml.Pagador {
-          xml.nome nome
-          xml.LoginMoip login_moip
-        }
-      end.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
-=end
     end
 
     private

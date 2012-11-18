@@ -3,6 +3,13 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require "rmoip"
 require 'fakeweb'
 require "rspec"
+
+class String
+  def remove_spaces
+    gsub(/\n/, "").gsub(/>\s*</, "><")
+  end
+end
+
 =begin
 RSpec.configure do |config|
   config.color_enabled = true
@@ -12,13 +19,13 @@ RSpec.configure do |config|
   # Define uma expressão regular que irá evitar que uma
   # linha do backtrace apareça quando um exemplo falha.
   config.backtrace_clean_patterns << /vendor\//
-  
+
   # Adiciona diretórios ao LOAD_PATH.
   #config.libs << "vendor/mylib-1.0.0"
-  
+
   # Carrega automaticamente os caminhos especificados.
   #config.requires << "rspec"
-  
+
   # Inclui um módulo. Os métodos desse módulo estarão disponíveis no
   # contexto dos métodos `it`, `specify`, `before`, `after` e `around`.
   config.include Module.new

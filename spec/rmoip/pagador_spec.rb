@@ -52,4 +52,82 @@ describe Rmoip::Pagador do
       pagador.endereco_cobranca.logradouro.should eq "Rua dos Bobos"
     end
   end
+
+  describe "#to_xml" do
+
+    let :expected_xml do
+      expected.remove_spaces
+    end
+
+    context "xml minimo" do
+      let :pagador do
+        described_class.new do
+        end
+      end
+
+      let :expected do
+        <<-XML
+<Pagador>
+</Pagador>
+        XML
+      end
+
+      it "cria xml" do
+        pagador.to_xml.should eq expected_xml
+      end
+    end
+
+    context "xml completo" do
+      let :pagador do
+        described_class.new do
+          nome "Luiz Inacio Lula da Silva"
+          login_moip "lula"
+          email "presidente@planalto.gov.br"
+          telefone_celular "(61)9999-9999"
+          apelido "Lula"
+          identidade "111.111.111-11"
+
+          endereco_cobranca do
+            logradouro "Rua dos bobos"
+            numero "0"
+            complemento "Ap -1"
+            bairro "Bairro"
+            cidade "São Paulo"
+            estado "SP"
+            pais "Brasil"
+            cep "01234-567"
+            telefone_fixo "(11) 2345-6789"
+          end
+        end
+      end
+
+      let :expected do
+        <<-XML
+<Pagador>
+  <Nome>Luiz Inacio Lula da Silva</Nome>
+  <LoginMoIP>lula</LoginMoIP>
+  <Email>presidente@planalto.gov.br</Email>
+  <TelefoneCelular>(61)9999-9999</TelefoneCelular>
+  <Apelido>Lula</Apelido>
+  <Identidade>111.111.111-11</Identidade>
+  <EnderecoCobranca>
+    <Logradouro>Rua dos bobos</Logradouro>
+    <Numero>0</Numero>
+    <Complemento>Ap -1</Complemento>
+    <Bairro>Bairro</Bairro>
+    <Cidade>São Paulo</Cidade>
+    <Estado>SP</Estado>
+    <Pais>Brasil</Pais>
+    <CEP>01234-567</CEP>
+    <TelefoneFixo>(11) 2345-6789</TelefoneFixo>
+  </EnderecoCobranca>
+</Pagador>
+        XML
+      end
+
+      it "cria o xml" do
+        pagador.to_xml.should eq expected_xml
+      end
+    end
+  end
 end

@@ -33,5 +33,15 @@ module Rmoip
     def required_attr
       []
     end
+
+    protected
+    def with_block(klass, &block)
+      klass.new &block if block_given?
+    end
+
+    def with_param(*args)
+      args.first unless args.empty?
+    end
+
   end
 end

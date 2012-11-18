@@ -142,14 +142,5 @@ module Rmoip
       [ :razao, :id_proprio, :valor, :pagador, :plots,  :commissioned, :url_retorno, :url_notificacao ]
     end
 
-    def with_block(klass, &block)
-      klass.new &block if block_given?
-    end
-
-    def with_param(*args)
-      args.first unless args.empty?
-    end
-
-
-  end
+   end
 end
