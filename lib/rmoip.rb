@@ -18,17 +18,21 @@ require "rmoip/response_api"
 
 module Rmoip
 
-    def self.sandbox(token, key)
-        self.request token, key, :SANDBOX
+  class << self
+
+    def sandbox(token, key)
+      request token, key, :sandbox
     end
 
-    def self.production(token, key)
-        self.request token, key, :PRODUCAO
+    def production(token, key)
+      request token, key, :production
     end
 
-	def self.request(token, key, env)
-	  env = :PRODUCAO if env.nil? || env != :SANDBOX
-	  Request.new(token, key, env)
-	end
+    private
+    def request(token, key, env)
+      Request.new(token, key, env)
+    end
+
+  end
 
 end

@@ -1,4 +1,4 @@
-source :gemcutter
+source 'https://rubygems.org'
 
 gemspec
 
@@ -9,9 +9,9 @@ gem "rake"
 gem "rb-readline"
 gem "builder"
 
-group :development do
-  gem "rspec"
+group :development, :test do
   gem 'guard-rspec'
-  gem "fakeweb"
+  gem "fakeweb" # TODO: remote
+  gem "vcr"
+  gem "webmock"
 end
-

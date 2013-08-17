@@ -11,8 +11,8 @@ module Rmoip
       @pagador ||= with_block(Pagador, &block) || with_param(*args)
     end
 
-    def add_parcel(&block)
-      @plots = [] if @plots.nil?
+    def parcelamentos(&block)
+      @plots = [] unless @plots
       parcel ||= Parcelamento.new(&block)
       @plots.push parcel
     end
@@ -33,6 +33,10 @@ module Rmoip
       @comissoes ||= with_block(Comissoes, &block) || with_param(*args)
     end
 
+    def boleto(*args, &block)
+      @boleto ||= with_block(Boleto, &block) || with_param(*args)
+    end
+
     def to_xml
       builder = Builder::XmlMarkup.new
       builder.instruct!
@@ -47,6 +51,20 @@ module Rmoip
           xml.IdProprio id_proprio if id_proprio
 
           xml << comissoes.to_xml if comissoes
+
+          xml << recebedor.to_xml if recebedor
+
+          xml << pagador.to_xml if pagador
+
+          xml << formas_pagamento.to_xml if formas_pagamento
+
+          xml << mensagens.to_xml if mensagens
+
+          xml << boleto.to_xml if boleto
+
+          xml.URLNotificacao url_notificacao if url_notificacao
+
+          xml.URLRetorno url_retorno if url_retorno
         end
       end
     end

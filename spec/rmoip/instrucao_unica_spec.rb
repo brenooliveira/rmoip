@@ -8,9 +8,9 @@ describe Rmoip::InstrucaoUnica do
 
   describe "#pagador" do
     let(:pagador) do
-      p = Rmoip::Pagador.new
-      p.nome "Pagador Moip"
-      p
+      Rmoip::Pagador.new.tap do |p|
+        p.nome "Pagador Moip"
+      end
     end
 
     context "passando block" do
@@ -302,6 +302,50 @@ describe Rmoip::InstrucaoUnica do
               valor_percentual "12.00"
             end
           end
+
+          recebedor do
+            login_moip "recebedor_primario"
+            apelido "Nome fantasia"
+          end
+
+          pagador do
+            nome "Cliente Sobrenome"
+            email "login@meudominio.com.br"
+            id_pagador "login@meudominio.com.br"
+            endereco_cobranca do
+              logradouro "Av. Brigadeiro Faria Lima"
+              numero "2927"
+              complemento "8° Andar"
+              bairro "Jardim Paulistano"
+              cidade "Sao Paulo"
+              estado "SP"
+              pais "BRA"
+              cep "01452-000"
+              telefone_fixo "(11)3165-4020"
+            end
+          end
+
+          formas_pagamento do
+            cartao_credito
+            debito_bancario
+            financiamento_bancario
+            boleto_bancario
+          end
+
+          mensagens do
+            mensagem "Mensagem adicional"
+          end
+
+          boleto do
+            data_vencimento Date.parse("2000-12-31")
+            instrucao_1 "Primeira linha de mensagem adicional"
+            instrucao_2 "Segunda linha"
+            instrucao_3 "Terceira linha"
+            url_logo "http://meusite.com.br/meulogo.jpg"
+          end
+
+          url_notificacao "http://meusite.com.br/notificacao/"
+          url_retorno "http://meusite.com.br/"
         end.to_xml
       end
 
@@ -315,16 +359,54 @@ describe Rmoip::InstrucaoUnica do
       <Valor moeda="BRL">12.23</Valor>
     </Valores>
     <IdProprio>ABC123456789</IdProprio>
-<Comissoes>
-  <Comissionamento>
-    <Comissionado>
-      <LoginMoIP>recebedor_secundario</LoginMoIP>
-    </Comissionado>
-    <Razao>Motivo da comissão</Razao>
-    <ValorFixo>10.00</ValorFixo>
-    <ValorPercentual>12.00</ValorPercentual>
-  </Comissionamento>
-</Comissoes>
+    <Comissoes>
+      <Comissionamento>
+        <Comissionado>
+          <LoginMoIP>recebedor_secundario</LoginMoIP>
+        </Comissionado>
+        <Razao>Motivo da comissão</Razao>
+        <ValorFixo>10.00</ValorFixo>
+        <ValorPercentual>12.00</ValorPercentual>
+      </Comissionamento>
+    </Comissoes>
+    <Recebedor>
+      <LoginMoIP>recebedor_primario</LoginMoIP>
+      <Apelido>Nome fantasia</Apelido>
+    </Recebedor>
+    <Pagador>
+      <Nome>Cliente Sobrenome</Nome>
+      <Email>login@meudominio.com.br</Email>
+      <IdPagador>login@meudominio.com.br</IdPagador>
+      <EnderecoCobranca>
+        <Logradouro>Av. Brigadeiro Faria Lima</Logradouro>
+        <Numero>2927</Numero>
+        <Complemento>8° Andar</Complemento>
+        <Bairro>Jardim Paulistano</Bairro>
+        <Cidade>Sao Paulo</Cidade>
+        <Estado>SP</Estado>
+        <Pais>BRA</Pais>
+        <CEP>01452-000</CEP>
+        <TelefoneFixo>(11)3165-4020</TelefoneFixo>
+      </EnderecoCobranca>
+    </Pagador>
+    <FormasPagamento>
+      <FormaPagamento>CartaoCredito</FormaPagamento>
+      <FormaPagamento>DebitoBancario</FormaPagamento>
+      <FormaPagamento>FinanciamentoBancario</FormaPagamento>
+      <FormaPagamento>BoletoBancario</FormaPagamento>
+    </FormasPagamento>
+    <Mensagens>
+      <Mensagem>Mensagem adicional</Mensagem>
+    </Mensagens>
+    <Boleto>
+      <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
+      <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
+      <Instrucao2>Segunda linha</Instrucao2>
+      <Instrucao3>Terceira linha</Instrucao3>
+      <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
+    </Boleto>
+    <URLNotificacao>http://meusite.com.br/notificacao/</URLNotificacao>
+    <URLRetorno>http://meusite.com.br/</URLRetorno>
   </InstrucaoUnica>
 </EnviarInstrucao>
         XML
@@ -337,102 +419,4 @@ describe Rmoip::InstrucaoUnica do
     end
   end
 
-# TODO criar completo
-=begin
-  context "completo" do
-
-    let(:instrucao_unica) do
-      described_class.new do
-        razao "uma razao qualquer"
-        id_proprio "ID_PROPRIO_1"
-        valor 12.23
-
-        pagador do
-          nome "Pagador Moip"
-          login_moip "pagador"
-        end
-
-        add_split do
-          razao "Uma razao qualquer"
-          valor_fixo "20.10"
-        end
-
-        url_retorno "http://meusite.com.br/"
-        url_notificacao "http://meusite.com.br/notificacao/"
-
-        recebedor do
-          login_moip "recebedor_login"
-        end
-
-        formas_pagamento do
-          boleto_bancario
-        end
-
-        mensagens {
-          mensagem "Produto adquirido no site ABC"
-        }
-      end
-    end
-
-    context "cria uma InstrucaoUnica" do
-      it "válida" do
-        instrucao_unica.should be_valid
-      end
-
-      it "com razao" do
-        instrucao_unica.razao.should eq "uma razao qualquer"
-      end
-
-      it "com id_proprio" do
-        instrucao_unica.id_proprio.should eq "ID_PROPRIO_1"
-      end
-
-      it "com valor" do
-        instrucao_unica.valor.should eq "12.23"
-      end
-
-      it "com pagador" do
-        instrucao_unica.pagador.nome.should eq "Pagador Moip"
-      end
-
-      it "com url retorno" do
-        instrucao_unica.url_retorno.should eq "http://meusite.com.br/"
-      end
-
-      it "com url notificacao" do
-        instrucao_unica.url_notificacao.should eq "http://meusite.com.br/notificacao/"
-      end
-
-      it "com recebedor" do
-        instrucao_unica.recebedor.login_moip.should eq "recebedor_login"
-      end
-
-      it "com formas de pagamento" do
-        instrucao_unica.formas_pagamento.should include :boleto_bancario
-      end
-
-      it "com mensagens" do
-        instrucao_unica.mensagens.size.should eq 1
-      end
-
-    end
-
-    context "#to_xml" do
-      it "cria um xml" do
-        instrucao_unica.to_xml.should eq <<-XML
-  <?xml version="1.0" encoding="UTF-8"?>
-  <EnviarInstrucao>
-    <InstrucaoUnica>
-      <Razao>uma razao qualquer</Razao>
-      <Pagador>
-        <Nome>Pagador Moip</Nome>
-        <LoginMoip>pagador</LoginMoip>
-      </Pagador>
-    </InstrucaoUnica>
-  </EnviarInstrucao>
-        XML
-      end
-    end
-  end
-=end
 end

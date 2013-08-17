@@ -11,6 +11,7 @@ module Rmoip
         xml.Nome nome if nome
         xml.LoginMoIP login_moip if login_moip
         xml.Email email if email
+        xml.IdPagador id_pagador if id_pagador
         xml.TelefoneCelular telefone_celular if telefone_celular
         xml.Apelido apelido if apelido
         xml.Identidade identidade if identidade
@@ -21,7 +22,7 @@ module Rmoip
 
     private
       def valid_attr
-        [ :nome, :login_moip, :pagador_id, :email, :telefone_celular,
+        [ :nome, :login_moip, :id_pagador, :email, :telefone_celular,
           :apelido, :identidade ]
       end
   end

@@ -9,3 +9,4 @@ dist
 exec
 .bundle
 *.swp
+tmp/

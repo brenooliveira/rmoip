@@ -10,6 +10,13 @@ class String
   end
 end
 
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'vcr_cassettes'
+  c.hook_into :webmock # or :fakeweb
+end
+
 =begin
 RSpec.configure do |config|
   config.color_enabled = true

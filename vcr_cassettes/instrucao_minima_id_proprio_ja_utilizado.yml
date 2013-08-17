@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ABCDEF:GHIJKL@desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><EnviarInstrucao><InstrucaoUnica><Razao>Razão
+        / Motivo do pagamento</Razao><Valores><Valor moeda="BRL">1.0</Valor></Valores><IdProprio>ABC1234</IdProprio></InstrucaoUnica></EnviarInstrucao>
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 17 Aug 2013 18:53:50 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '272'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - text/xml;charset=UTF-8
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PG5zMTpFbnZpYXJJbnN0cnVjYW9VbmljYVJlc3BvbnNlIHhtbG5zOm5zMT0i
+        aHR0cDovL3d3dy5tb2lwLmNvbS5ici93cy9hbHBoYS8iPjxSZXNwb3N0YT48
+        SUQ+MjAxMzA4MTcxNTUzNTA2MDgwMDAwMDA0MDg2NzAyPC9JRD48U3RhdHVz
+        PkZhbGhhPC9TdGF0dXM+PEVycm8gQ29kaWdvPSIxMDIiPklkIFByw7Nwcmlv
+        IGrDoSBmb2kgdXRpbGl6YWRvIGVtIG91dHJhIEluc3RydcOnw6NvPC9FcnJv
+        PjwvUmVzcG9zdGE+PC9uczE6RW52aWFySW5zdHJ1Y2FvVW5pY2FSZXNwb25z
+        ZT4=
+    http_version:
+  recorded_at: Sat, 17 Aug 2013 18:53:50 GMT
+recorded_with: VCR 2.5.0

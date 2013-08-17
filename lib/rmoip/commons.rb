@@ -34,6 +34,15 @@ module Rmoip
       []
     end
 
+    def to_xml
+      builder = Builder::XmlMarkup.new
+      builder.tag!(class_name) do |xml|
+        valid_attr.each do |attr|
+          xml.tag!(camelize(attr.to_s), self.send(attr))
+        end
+      end
+    end
+
     protected
     def with_block(klass, &block)
       klass.new &block if block_given?
@@ -41,6 +50,15 @@ module Rmoip
 
     def with_param(*args)
       args.first unless args.empty?
+    end
+
+    def class_name
+      self.class.name.split("::").last
+    end
+
+    def camelize(term)
+      return term if term !~ /_/ && term =~ /[A-Z]+.*/
+      term.split('_').map{|e| e.capitalize}.join
     end
 
   end

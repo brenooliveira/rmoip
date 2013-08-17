@@ -10,15 +10,25 @@ describe  Rmoip::Mensagens do
     end
   end
 
-  context "cria" do
+  describe "cria" do
     it "com duas mensagens" do
       mensagens.size.should eq 2
     end
   end
 
-  context "#include?" do
+  describe "#include?" do
     it "verifica se mensagem existe" do
       mensagens.include? "Produto adquirido no site ABC"
     end
+  end
+
+  describe "#to_xml" do
+    let(:subject) { mensagens.to_xml }
+
+    it { should eq %(
+<Mensagens>
+  <Mensagem>Produto adquirido no site ABC</Mensagem>
+  <Mensagem>Total pago + frete - Preço: R$40,10</Mensagem>
+</Mensagens>).remove_spaces}
   end
 end

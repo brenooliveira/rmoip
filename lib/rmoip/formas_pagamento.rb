@@ -29,6 +29,14 @@ module Rmoip
       self << method
     end
 
+    def to_xml
+      Builder::XmlMarkup.new.FormasPagamento do |xml|
+        formas.each do |f|
+          xml.FormaPagamento camelize(f.to_s)
+        end
+      end
+    end
+
     private
     def valid_forma?(forma)
       valid_formas.include? forma
@@ -36,6 +44,11 @@ module Rmoip
 
     def valid_formas
       [ :boleto_bancario, :carteira_moip, :cartao_credito, :debito_bancario, :financiamento_bancario ]
+    end
+
+    def camelize(term)
+      return term if term !~ /_/ && term =~ /[A-Z]+.*/
+      term.split('_').map{|e| e.capitalize}.join
     end
 
   end

@@ -19,4 +19,12 @@ describe Rmoip::Recebedor do
     end
   end
 
+  describe "#to_xml" do
+
+    let(:subject) { recebedor.to_xml }
+
+    it { should eq "<Recebedor><LoginMoIP>login_recebedor</LoginMoIP><Apelido>apelido recebedor</Apelido></Recebedor>" }
+
+  end
+
 end

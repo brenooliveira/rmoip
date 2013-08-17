@@ -8,7 +8,7 @@ describe Rmoip::Pagador do
       Rmoip::Pagador.new do
         nome "Pagador Moip"
         login_moip "pagador_login"
-        pagador_id "PAGADOR_ID_1"
+        id_pagador "PAGADOR_ID_1"
         email "pagador@domain.com"
         telefone_celular "(11) 98888-7766"
         apelido "Apelido"
@@ -29,7 +29,7 @@ describe Rmoip::Pagador do
     end
 
     it "com id" do
-      pagador.pagador_id.should eq "PAGADOR_ID_1"
+      pagador.id_pagador.should eq "PAGADOR_ID_1"
     end
 
     it "com email" do
@@ -83,6 +83,7 @@ describe Rmoip::Pagador do
           nome "Luiz Inacio Lula da Silva"
           login_moip "lula"
           email "presidente@planalto.gov.br"
+          id_pagador "id pagador"
           telefone_celular "(61)9999-9999"
           apelido "Lula"
           identidade "111.111.111-11"
@@ -107,6 +108,7 @@ describe Rmoip::Pagador do
   <Nome>Luiz Inacio Lula da Silva</Nome>
   <LoginMoIP>lula</LoginMoIP>
   <Email>presidente@planalto.gov.br</Email>
+  <IdPagador>id pagador</IdPagador>
   <TelefoneCelular>(61)9999-9999</TelefoneCelular>
   <Apelido>Lula</Apelido>
   <Identidade>111.111.111-11</Identidade>

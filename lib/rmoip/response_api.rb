@@ -1,32 +1,23 @@
 module Rmoip
-	class ResponseApi
+  class ResponseApi
 
-        attr_accessor :token, :status, :errors, :base_uri
+    attr_reader :id, :token, :status, :errors, :base_uri
 
-        def initialize
-            @errors = Array.new
-        end
+    def initialize(params, base_uri)
+      @errors = []
+      @base_uri = base_uri
+      @id = params["ID"] if params["ID"]
+      @token = params["Token"] if params["Token"]
+      @status = params["Status"] if params["Status"]
+      if params["Erro"]
+        erro = params["Erro"]
+        @errors << { "Codigo" => erro["Codigo"], "Mensagem" => erro["__content__"] }
+      end
+    end
 
-        def self.build(params)
-        	response = self.new
-        	response.token = params["Token"] if !params["Token"].nil?
-        	response.status = params["Status"] if !params["Status"].nil?
-        	params["Erro"].each do |erro|
-                response.errors.push erro
-        	end
-            response
-        end
+    def success?
+      status == "Sucesso"
+    end
 
-        def is_successful
-            self.status == "Sucesso"
-        end
-
-        def url
-            @base_uri << "/Instrucao.do?token=" << token
-        end
-
-        def to_s
-            "token #{@token}, status: #{@status}, Total de error: #{@errors}"
-        end
-	end
+  end
 end
