@@ -10,4 +10,6 @@ Gem::Specification.new do |s|
   s.email       = 'breno26@gmail.com'
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = 'http://rubygems.org/gems/rmoip'
+
+  s.add_development_dependency 'httparty'
 end

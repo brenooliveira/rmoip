@@ -19,5 +19,9 @@ module Rmoip
       status == "Sucesso"
     end
 
+    def redirect_url
+      %(#{base_uri}/Instrucao.do?token=#{@token})
+    end
+
   end
 end

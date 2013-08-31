@@ -25,6 +25,11 @@ describe Rmoip::ResponseApi do
     it { response_api.token.should eq "Y26051I3N0U871W721B2T1U6Z2Q6J8N4R7H0L0T0V0O0R0M4C078U6G5S8D7" }
   end
 
+  describe "redirect_url" do
+    let(:subject) { response_api.redirect_url }
+    it { should eq "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=Y26051I3N0U871W721B2T1U6Z2Q6J8N4R7H0L0T0V0O0R0M4C078U6G5S8D7" }
+  end
+
   context "quando erro" do
 
     let(:subject) do

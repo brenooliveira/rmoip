@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem "json"
-gem "httparty"
 gem "nokogiri"
 gem "rake"
 gem "rb-readline"
