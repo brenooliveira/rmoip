@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = 'http://rubygems.org/gems/rmoip'
 
-  s.add_development_dependency 'httparty'
+  s.add_dependency 'httparty'
 end
