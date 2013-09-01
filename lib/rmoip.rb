@@ -15,6 +15,7 @@ require "rmoip/formas_pagamento"
 require "rmoip/boleto"
 require "rmoip/mensagens"
 require "rmoip/response_api"
+require "rmoip/nasp"
 
 module Rmoip
 
